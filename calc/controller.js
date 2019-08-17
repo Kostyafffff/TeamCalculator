@@ -2,24 +2,30 @@ const clickOnNumber = e => {
     if (!e || !e.target.innerHTML) {
         return
     }
+    let inputString = document.getElementById('inputField').value;
 
     //проверка на наличие точки в строке
     if (e.target.innerHTML==='.'){
-        let inputString = document.getElementById('inputField').value;
-
         if(inputString.indexOf('.', 0) >= 0){
-
             return
         }
     }
 
     //проверка на 0 вначале строки, если вначале стоит 0 и при этом длинна строки не более 1, то выходим из функции
     if (e.target.innerHTML==='0'){
-        let inputString = document.getElementById('inputField').value;
-        console.log(inputString.charAt('0'));
         if(inputString.charAt(0) === '0' && inputString.length <= 1){
             return
         }
+    }
+
+    //не больше 8 чисел в поле ввода
+    if (inputString.length >= 8){
+        return;
+    }
+
+    //начальное число всегда 0, но при вводе чего-то другого меняется
+    if (inputString.charAt(0) === '0' && e.target.innerHTML !== '0' && e.target.innerHTML !== '.' && inputString.length <= 1){
+        document.getElementById("inputField").value = "";
     }
 
     document.getElementById('inputField').value += e.target.innerHTML;
@@ -33,7 +39,7 @@ const Clear = e => {
         setToModel(null, 'result');
         setToModel('', 'sign');
     }
-    document.getElementById("inputField").value = "";
+    document.getElementById("inputField").value = "0";
 };
 
 const clickOnSign = e => {
