@@ -18,7 +18,8 @@
         </p>
     </div>
     <div class="input-block">
-        <input class="input-block__input-field" id="inputField" type="number" maxlength="9" value="0">
+        <input class="input-block__input-field" id="inputField" type="text" maxlength="9" value="0"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
     </div>
     <div class="control">
         <div class="inner-control__sub-panel">
