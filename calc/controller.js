@@ -3,6 +3,7 @@ const clickOnNumber = e => {
         return;
     }
 
+    //если результата есть (т.е. НЕ первый цикл расчета) то результат заносим в firstValue и отчищаем поле ввода-вывода
     if (model.result !== null) {
         setToModel(model.result, 'firstValue');
         setToModel(null, 'result');
