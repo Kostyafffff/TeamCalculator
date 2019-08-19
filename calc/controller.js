@@ -6,7 +6,7 @@ const clickOnNumber = e => {
     if (model.result !== null) {
         setToModel(model.result, 'firstValue');
         setToModel(null, 'result');
-        document.getElementById("inputField").value = "";
+        document.getElementById('inputField').value = "";
     }
 
     let inputString = document.getElementById('inputField').value;
@@ -28,20 +28,18 @@ const clickOnNumber = e => {
 
     //начальное число всегда 0, но при вводе чего-то другого меняется
     if (inputString.charAt(0) === '0' && e.target.innerHTML !== '0' && e.target.innerHTML !== '.' && inputString.length <= 1) {
-        document.getElementById("inputField").value = "";
+        document.getElementById('inputField').value = "";
     }
 
     document.getElementById('inputField').value += e.target.innerHTML;
 };
 
 const Clear = () => {
-    //если передается true то чищу всю модель кроме результата
     setToModel(null, 'firstValue');
     setToModel(null, 'secondValue');
     setToModel(null, 'result');
     setToModel('', 'sign');
-
-    document.getElementById("inputField").value = "0";
+    document.getElementById('inputField').value = '0';
 };
 
 const clickOnSign = e => {
@@ -49,13 +47,11 @@ const clickOnSign = e => {
         return;
     }
 
-    if (model.sign === '') {
-        setToModel(document.getElementById("inputField").value, 'firstValue');
-    } else {
-        setToModel(document.getElementById("inputField").value, 'secondValue');
-    }
+    model.sign === ''
+        ? setToModel(document.getElementById('inputField').value, 'firstValue')
+        : setToModel(document.getElementById('inputField').value, 'secondValue');
 
-    document.getElementById("inputField").value = "";
+    document.getElementById('inputField').value = "";
 
     //если знак = то просто считает, если знак иной, то считает учитывая новый знак
     if (e.target.innerHTML !== '=') {
@@ -71,55 +67,48 @@ const makeResult = () => {
         return;
     }
 
+    const result = checkSign(model);
+
+    if (result || result >= 0){
+        setToModel( Number(result.toFixed(3)), 'result');
+        document.getElementById('inputField').value = Number(result.toFixed(3));
+        //очищаю для второго цикла расчетов
+        setToModel(null, 'firstValue');
+        setToModel(null, 'secondValue');
+        setToModel('', 'sign');
+    }
+};
+
+const checkSign = (model) => {
     let result = null;
 
     switch (model.sign) {
-        case "+" :
+        case '+' :
             result = Number(model.firstValue) + Number(model.secondValue);
             break;
-        case "-" :
+        case '-' :
             result = Number(model.firstValue) - Number(model.secondValue);
             break;
-        case "×" :
+        case '×' :
             result = Number(model.firstValue) * Number(model.secondValue);
             break;
-        case "÷" :
+        case '÷' :
             result = Number(model.firstValue) / Number(model.secondValue);
             break;
     }
 
-    setToModel( Number(result.toPrecision(4)), 'result');
-    document.getElementById("inputField").value = Number(result.toPrecision(4));
-
-    //очищаю для второго цикла расчетов
-    setToModel(null, 'firstValue');
-    setToModel(null, 'secondValue');
-    setToModel('', 'sign');
+    return result;
 };
-
 
 const setToModel = (value, field) => {
     model[field] = value;
 };
 
-// const onKeyDown = e => {
-//     const grandedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
-//     // const grandedKeys = '0123456789.';
-//
-//     if (!grandedKeys.includes(e.key)){
-//         console.log(e.key);
-//         return;
-//     }else{
-//         return false;
-//     }
-//
-// };
-
 const init = () => {
-    numberButtons = document.getElementsByClassName('number-button');
-    signButtons = document.getElementsByClassName('sign-button');
-    clearInput = document.getElementById("clearButton");
     input = document.getElementById('inputField');
+    clearInput = document.getElementById('clearButton');
+    signButtons = document.getElementsByClassName('sign-button');
+    numberButtons = document.getElementsByClassName('number-button');
 
     for (let i = 0; i < numberButtons.length; i++) {
         numberButtons[i].addEventListener('click', clickOnNumber, false);
@@ -129,9 +118,7 @@ const init = () => {
         signButtons[i].addEventListener('click', clickOnSign, false);
     }
 
-    clearInput.addEventListener("click", Clear, false);
-
-    // input.addEventListener('keydown', onKeyDown, false);
+    clearInput.addEventListener('click', Clear, false);
 };
 
 init();
