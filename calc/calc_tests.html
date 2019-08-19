@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>calculator</title>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
+
 <div id="calc">
     <div class="calc-top">
         <h2 class="calc-top_header">
@@ -39,7 +38,7 @@
                 <button class="inner-control__sub-panel__button number-button" name="3">3</button>
                 <button class="inner-control__sub-panel__button number-button" name="0">0</button>
                 <button class="inner-control__sub-panel__button number-button" name=".">.</button>
-                <button class="inner-control__sub-panel__button sign-button" name="-">=</button>
+                <button class="inner-control__sub-panel__button sign-button" name="=">=</button>
             </div>
             <div class="inner-control__sub-panel">
                 <button class="inner-control__sub-panel__button sign-button" name="*">×</button>
@@ -49,7 +48,21 @@
         </div>
     </div>
 </div>
+
+
+<div id="mocha"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+<script>
+    mocha.setup('bdd');
+    var assert = chai.assert;
+</script>
 <script src="model.js"></script>
 <script src="controller.js"></script>
+<script src="tests.js"></script>
+<script>
+    mocha.run();
+</script>
 </body>
 </html>
