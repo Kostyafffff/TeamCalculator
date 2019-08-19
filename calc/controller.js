@@ -4,7 +4,7 @@ const clickOnNumber = e => {
     }
 
     //проверка на наличие точки в строке
-    if (e.target.innerHTML==='.'){
+    if (e.target.innerHTML === '.'){
         let inputString = document.getElementById('inputField').value;
 
         if(inputString.indexOf('.', 0) >= 0){
@@ -119,6 +119,7 @@ const init = () => {
     clearInput.addEventListener("click", Clear, true);
     clearInput.clearAll = true;
 
+    const defaultZero = document.getElementById("inputField").defaultValue = '0';
 };
 
 init();
